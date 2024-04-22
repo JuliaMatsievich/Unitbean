@@ -3,7 +3,8 @@
   --textColor: rgb(53, 36, 36);
   --colorSecondary: rgb(81, 74, 74);
   --colorPrimary: rgb(168, 87, 87);
-  --colorBaseWhite: rgb(255, 255, 255); 
+  --colorBaseWhite: rgb(255, 255, 255);
+  --colorBG: rgb(247, 244, 244);
 }
 
 * {
