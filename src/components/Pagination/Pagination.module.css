@@ -1,0 +1,58 @@
+.container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 88px;
+	padding: 28px 20px 20px 20px;
+}
+
+.pages {
+	display: flex;
+	gap: 12px;
+}
+
+.itemPage,
+.itemPageActive,
+.itemPageArrow {
+	color: var(--textColor);
+	width: 40px;
+	height: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 20px;
+	letter-spacing: -0.05px;
+	box-sizing: border-box;
+	border: none;
+	border-radius: 6px;
+}
+
+.itemPageActive {
+	border: 2px solid var(--colorPrimary);
+	border-radius: 6px;
+}
+
+.itemPageArrow {
+	border: 1px solid rgb(242, 238, 238);
+	border-radius: 4px;
+	background: rgb(255, 255, 255);
+	background-image: url(../../assets/arrow.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: auto;
+}
+
+.pagesNum {
+	display: flex;
+	gap: 13px;
+}
+
+.pagesNumText {
+	color: var(--colorSecondary);
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 20px;
+	letter-spacing: -0.05px;
+}
