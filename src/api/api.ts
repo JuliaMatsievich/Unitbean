@@ -1,13 +1,24 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-// import type { ISearchUsers } from "../interface";
 import { BASE_URL } from "../constants/url";
+import { IItems } from "../inteface/type";
+import { RootState } from "../store/store";
+
+// const accessToken: string = localStorage.getItem("access_token");
 
 export const mainApi = createApi({
   reducerPath: "mainApi",
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
+    prepareHeaders: (headers, { getState }) => {
+      const accessToken = (getState() as RootState).user.accessToken;
+      if (accessToken) {
+        headers.set("Authorization", `${accessToken}`);
+      }
+      return headers;
+    },
   }),
-  tagTypes: ["User"],
+
+  tagTypes: ["User", "Items"],
   endpoints: (builder) => ({
     getAuthLogin: builder.mutation<
       {
@@ -22,7 +33,15 @@ export const mainApi = createApi({
       }),
       invalidatesTags: () => [{ type: "User", id: "ID" }],
     }),
+
+    getItems: builder.query<IItems, null>({
+      query: () => ({
+        url: "wh/items?page=1&pageSize=10",
+        method: "GET"
+      }),
+      providesTags: () => [{ type: "Items", id: "id" }],
+    }),
   }),
 });
 
-export const { useGetAuthLoginMutation } = mainApi;
+export const { useGetAuthLoginMutation, useGetItemsQuery } = mainApi;

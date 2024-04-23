@@ -3,12 +3,13 @@ import "./App.css";
 import { Header } from "./components/Header/Header";
 import { Main } from "./components/Main/Main";
 import { Pagination } from "./components/Pagination/Pagination";
-import { useGetAuthLoginMutation } from "./api/api";
+import { useGetAuthLoginMutation, useGetItemsQuery } from "./api/api";
 import { useAppDispatch } from "./hooks/useAppDispatch";
 import { setToken } from "./store/slices/userSlice";
 
 function App() {
   const [getAuthLogin] = useGetAuthLoginMutation();
+  const {data, isLoading} = useGetItemsQuery(null);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -18,6 +19,11 @@ function App() {
         dispatch(setToken({ accessToken: response.access_token }))
       );
   }, []);
+
+  useEffect(() => {
+    console.log('data', data);
+  },[isLoading])
+
 
   return (
     <div className="wrapper">
