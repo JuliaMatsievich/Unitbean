@@ -3,8 +3,6 @@ import { BASE_URL } from "../constants/url";
 import { IItems } from "../inteface/type";
 import { RootState } from "../store/store";
 
-// const accessToken: string = localStorage.getItem("access_token");
-
 export const mainApi = createApi({
   reducerPath: "mainApi",
   baseQuery: fetchBaseQuery({
@@ -37,11 +35,11 @@ export const mainApi = createApi({
     getItems: builder.query<IItems, null>({
       query: () => ({
         url: "wh/items?page=1&pageSize=10",
-        method: "GET"
+        method: "GET",
       }),
       providesTags: () => [{ type: "Items", id: "id" }],
     }),
   }),
 });
 
-export const { useGetAuthLoginMutation, useGetItemsQuery } = mainApi;
+export const { useGetAuthLoginMutation, useGetItemsQuery, useLazyGetItemsQuery } = mainApi;
