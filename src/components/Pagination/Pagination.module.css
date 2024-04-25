@@ -13,8 +13,8 @@
 
 .pagesContainer {
 	display: flex;
-	width: 300px;
 	overflow: hidden;
+	align-items: center;
 	gap: 12px;
 }
 

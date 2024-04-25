@@ -7,7 +7,7 @@ import { useGetAuthLoginMutation, useLazyGetItemsQuery } from "./api/api";
 import { useAppDispatch } from "./hooks/useAppDispatch";
 import { setToken } from "./store/slices/userSlice";
 import { IItem, IItems } from "./inteface/type";
-import { setPages } from "./store/slices/paginationSlice";
+import { setCurrentPage, setPages } from "./store/slices/paginationSlice";
 import { useAppSelector } from "./hooks/useAppSelector";
 
 function App() {
@@ -17,6 +17,7 @@ function App() {
   const [search, setSearch] = useState<string>("");
   const filteredItems = useAppSelector((state) => state.items.filteredItems);
   const dispatch = useAppDispatch();
+  const currentPage = useAppSelector((state) => state.pagination.currentPage);
 
   useEffect(() => {
     getAuthLogin({ login: "admin", password: "admin" })
@@ -25,15 +26,14 @@ function App() {
         dispatch(setToken({ accessToken: response.access_token }))
       )
       .then(() => {
-        getItems({ page: 1, pageSize: 10 })
+        getItems({ page: currentPage, pageSize: 10 })
           .unwrap()
           .then((response: IItems) => {
             setItems(response.result);
             dispatch(setPages({ totalCount: response.total }));
           });
       });
-  }, []);
-
+  }, [currentPage]);
 
   return (
     <div className="wrapper">
@@ -42,7 +42,11 @@ function App() {
         <Main
           items={search && filteredItems.length > 0 ? filteredItems : items}
         />
-        <Pagination />
+        <Pagination
+          handlePageChage={(currentPage) =>
+            dispatch(setCurrentPage({currentPage}))
+          }
+        />
       </div>
     </div>
   );

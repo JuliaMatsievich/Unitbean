@@ -1,46 +1,35 @@
 // import { useEffect } from "react";
-import { useAppDispatch } from "../../hooks/useAppDispatch";
+// import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { FC } from "react";
 import { useAppSelector } from "../../hooks/useAppSelector";
-import { setCurrentPage } from "../../store/slices/paginationSlice";
+// import { setCurrentPage } from "../../store/slices/paginationSlice";
 import styles from "./Pagination.module.css";
+import ReactPaginate from "react-paginate";
 
-export const Pagination = () => {
+interface IPaginationProps {
+  handlePageChage: (currentPage: number) => void
+}
+
+export const Pagination: FC<IPaginationProps> = ({ handlePageChage }) => {
   const pages = useAppSelector((state) => state.pagination.pages);
-  const currentPage = useAppSelector((state) => state.pagination.currentPage);
-  const dispatch = useAppDispatch();
-
-  const handleClickPage = (page: number) => {
-    dispatch(setCurrentPage({ currentPage: page }));
-  };
-
-  const handleClickPrev = () => {
-    console.log("prev");
-  };
-
-  const handleClickNext = () => {
-    console.log("next");
-  };
 
   return (
     <>
       <footer className={styles.container}>
-        <div className={styles.pages}>
-          <div className={styles.itemPageArrowPrev} onClick={handleClickPrev} />
-          <div className={styles.pagesContainer}>
-            {pages.map((page, index) => (
-              <div
-                className={
-                  currentPage === page ? styles.itemPageActive : styles.itemPage
-                }
-                onClick={() => handleClickPage(page)}
-                key={index}
-              >
-                {page}
-              </div>
-            ))}
-          </div>
-          <div className={styles.itemPageArrowNext} onClick={handleClickNext} />
-        </div>
+        <ReactPaginate
+          className={styles.pagesContainer}
+          initialPage={0}
+          breakLabel="..."
+          nextLabel={<div className={styles.itemPageArrowNext} />}
+          onPageChange={(event) => handlePageChage(event.selected + 1)}
+          pageRangeDisplayed={5}
+          pageCount={pages.length}
+          previousLabel={<div className={styles.itemPageArrowPrev} />}
+          renderOnZeroPageCount={null}
+          pageClassName={styles.itemPage}
+          activeClassName={styles.itemPageActive}
+          pageLinkClassName={styles.itemPage}
+        />
         <div className={styles.pagesNum}>
           <p className={styles.pagesNumText}>Показывать по:</p>
         </div>
