@@ -1,15 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-// import { searchUsersApi } from "../services/searchUsersApi";
-// import { sortReducer } from "./slices/sortSlice";
-// import { paginationReducer } from "./slices/paginationSlice";
+import { paginationReducer } from "./slices/paginationSlice";
 import { mainApi } from "../api/api";
 import { userReducer } from "./slices/userSlice";
+import { itemsReducer } from "./slices/itemsSlice";
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
-    // sort: sortReducer,
-    // pagination: paginationReducer,
+    items: itemsReducer,
+    pagination: paginationReducer,
     [mainApi.reducerPath]: mainApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

@@ -24,13 +24,6 @@ export const Main: FC<IItemsProps> = ({ items }) => {
             <button className={styles.editPosition} />
           </div>
         ))}
-
-        {/* <div className={styles.contentTable}>
-          <div>Корпус Т5МЭ.018500.001 ст.1</div>
-          <div>шт</div>
-          <div>#3499656</div>
-          <button className={styles.editPosition} /> */}
-        {/* </div> */}
       </main>
     </>
   );

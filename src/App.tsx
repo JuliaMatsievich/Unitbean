@@ -7,11 +7,15 @@ import { useGetAuthLoginMutation, useLazyGetItemsQuery } from "./api/api";
 import { useAppDispatch } from "./hooks/useAppDispatch";
 import { setToken } from "./store/slices/userSlice";
 import { IItem, IItems } from "./inteface/type";
+import { setPages } from "./store/slices/paginationSlice";
+import { useAppSelector } from "./hooks/useAppSelector";
 
 function App() {
   const [getAuthLogin] = useGetAuthLoginMutation();
   const [items, setItems] = useState<IItem[]>([]);
   const [getItems] = useLazyGetItemsQuery();
+  const [search, setSearch] = useState<string>("");
+  const filteredItems = useAppSelector((state) => state.items.filteredItems);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -21,24 +25,23 @@ function App() {
         dispatch(setToken({ accessToken: response.access_token }))
       )
       .then(() => {
-        getItems(null)
+        getItems({ page: 1, pageSize: 10 })
           .unwrap()
           .then((response: IItems) => {
             setItems(response.result);
-            console.log("items", items);
+            dispatch(setPages({ totalCount: response.total }));
           });
       });
   }, []);
 
-  // useEffect(() => {
-  //   console.log('data', data);
-  // },[isLoading])
 
   return (
     <div className="wrapper">
       <div className="container">
-        <Header />
-        <Main items={items}/>
+        <Header items={items} search={search} setSearch={setSearch} />
+        <Main
+          items={search && filteredItems.length > 0 ? filteredItems : items}
+        />
         <Pagination />
       </div>
     </div>

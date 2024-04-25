@@ -19,6 +19,10 @@
 	margin-right: 10px;
 }
 
+.input:focus {
+	outline: none;
+}
+
 .input::placeholder {
 	font-family: var(--mainFont);
 	color: rgb(197, 192, 192);

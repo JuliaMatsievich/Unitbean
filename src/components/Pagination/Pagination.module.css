@@ -11,9 +11,17 @@
 	gap: 12px;
 }
 
+.pagesContainer {
+	display: flex;
+	width: 300px;
+	overflow: hidden;
+	gap: 12px;
+}
+
 .itemPage,
 .itemPageActive,
-.itemPageArrow {
+.itemPageArrowNext,
+.itemPageArrowPrev {
 	color: var(--textColor);
 	width: 40px;
 	height: 40px;
@@ -27,14 +35,24 @@
 	box-sizing: border-box;
 	border: none;
 	border-radius: 6px;
+	cursor: pointer;
+	transition: all 0.3s ease 0s;
 }
 
+.itemPage,
+.itemPageActive {
+	flex: 0 0 auto;
+}
+
+.itemPage:hover {
+	border: 2px solid var(--colorPrimary);
+}
 .itemPageActive {
 	border: 2px solid var(--colorPrimary);
-	border-radius: 6px;
 }
 
-.itemPageArrow {
+.itemPageArrowNext,
+.itemPageArrowPrev {
 	border: 1px solid rgb(242, 238, 238);
 	border-radius: 4px;
 	background: rgb(255, 255, 255);
@@ -42,6 +60,15 @@
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: auto;
+}
+
+.itemPageArrowPrev {
+	transform: rotate(180deg);
+}
+
+.itemPageArrowNext:hover,
+.itemPageArrowPrev:hover {
+	background-color: var(--colorPrimary);
 }
 
 .pagesNum {

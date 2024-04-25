@@ -32,9 +32,9 @@ export const mainApi = createApi({
       invalidatesTags: () => [{ type: "User", id: "ID" }],
     }),
 
-    getItems: builder.query<IItems, null>({
-      query: () => ({
-        url: "wh/items?page=1&pageSize=10",
+    getItems: builder.query<IItems, { page: number; pageSize: number }>({
+      query: (arg) => ({
+        url: `wh/items?page=${arg.page}&pageSize=${arg.pageSize}`,
         method: "GET",
       }),
       providesTags: () => [{ type: "Items", id: "id" }],
@@ -42,4 +42,8 @@ export const mainApi = createApi({
   }),
 });
 
-export const { useGetAuthLoginMutation, useGetItemsQuery, useLazyGetItemsQuery } = mainApi;
+export const {
+  useGetAuthLoginMutation,
+  useGetItemsQuery,
+  useLazyGetItemsQuery,
+} = mainApi;
