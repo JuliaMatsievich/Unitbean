@@ -12,6 +12,30 @@
 	align-items: center;
 }
 
+.titleContainer {
+	display: flex;
+	justify-content: flex-start;
+}
+
+.title {
+	margin-right: 8px;
+}
+
+.countItems {
+	height: 24px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 3px 8px;
+	border-radius: 4px;
+	background: var(--colorPrimary);
+	color: var(--colorBaseWhite);
+	font-size: 13px;
+	font-weight: 400;
+	line-height: 16px;
+	letter-spacing: 0px;
+}
+
 .addPosition {
 	width: 160px;
 	height: 40px;
