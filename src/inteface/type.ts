@@ -17,3 +17,8 @@ export interface IItemForm {
   measurement_units: string;
   code: string;
 }
+
+export interface IOption {
+  value: string;
+  label: string;
+}

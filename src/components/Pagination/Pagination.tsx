@@ -2,14 +2,34 @@ import { FC } from "react";
 import { useAppSelector } from "../../hooks/useAppSelector";
 import styles from "./Pagination.module.css";
 import ReactPaginate from "react-paginate";
+import Select, { OnChangeValue, PropsValue } from "react-select";
+import { IOption } from "../../inteface/type";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { setPageSize } from "../../store/slices/paginationSlice";
 
 interface IPaginationProps {
-  handlePageChange: (currentPage: number) => void
+  handlePageChange: (currentPage: number) => void;
 }
+
+const options: IOption[] = [
+  { value: "10", label: "10" },
+  { value: "20", label: "20" },
+  { value: "30", label: "30" },
+];
+
 
 export const Pagination: FC<IPaginationProps> = ({ handlePageChange }) => {
   const pages = useAppSelector((state) => state.pagination.pages);
-  console.log('pages', pages);
+  const pageSize = useAppSelector((state) => state.pagination.pageSize);
+  const dispatch = useAppDispatch();
+
+  const getValue = (): PropsValue<IOption> | undefined => {
+    return pageSize ? options.find((ps) => ps.value === pageSize) : undefined;
+  };
+
+  const onChange = (newValue: OnChangeValue<IOption, boolean> | null) => {
+    dispatch(setPageSize({ pageSize: (newValue as IOption).value }));
+  };
 
   return (
     <>
@@ -30,6 +50,24 @@ export const Pagination: FC<IPaginationProps> = ({ handlePageChange }) => {
         />
         <div className={styles.pagesNum}>
           <p className={styles.pagesNumText}>Показывать по:</p>
+          <Select
+            onChange={onChange}
+            options={options}
+            value={getValue()}
+            placeholder="Выберите"
+            theme={(theme) => ({
+              ...theme,
+              colors: {
+                ...theme.colors,
+                primary25: "#a85757",
+                primary: "black",
+                neutral0: "#514a4a",
+                neutral80: "white",
+                neutral90: "white",
+                neutral70: "white",
+              },
+            })}
+          />
         </div>
       </footer>
     </>

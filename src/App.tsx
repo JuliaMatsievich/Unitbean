@@ -24,6 +24,8 @@ function App() {
   const dispatch = useAppDispatch();
   const currentPage = useAppSelector((state) => state.pagination.currentPage);
   const [isOpenModalAdd, setIsOpenModalAdd] = useState<boolean>(false);
+  const pageSize = Number(useAppSelector((state) => state.pagination.pageSize));
+
 
   useEffect(() => {
     getAuthLogin({ login: "admin", password: "admin" })
@@ -33,21 +35,21 @@ function App() {
       );
 
     if (!search) {
-      getItems({ page: currentPage, pageSize: 10 })
+      getItems({ page: currentPage, pageSize: pageSize })
         .unwrap()
         .then((response: IItems) => {
           setItems(response.result);
           dispatch(setPages({ totalCount: response.total }));
         });
     } else {
-      getSearchItem({ page: currentPage, pageSize: 10, itemName: search })
+      getSearchItem({ page: currentPage, pageSize: pageSize, itemName: search })
         .unwrap()
         .then((response: IItems) => {
           setItems(response.result);
           dispatch(setPages({ totalCount: response.total }));
         });
     }
-  }, [currentPage, items, dispatch, search]);
+  }, [currentPage, items, dispatch, search, pageSize]);
 
   return (
     <div className="wrapper">

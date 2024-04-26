@@ -5,14 +5,14 @@ interface IPaginationState {
   totalCount: number;
   pages: number[];
   currentPage: number;
+  pageSize: string;
 }
-
-const PAGE = 10
 
 export const initialState: IPaginationState = {
   totalCount: 0,
   pages: [1],
   currentPage: 1,
+  pageSize: '10',
 };
 
 export const paginationSlice = createSlice({
@@ -22,14 +22,17 @@ export const paginationSlice = createSlice({
     setPages(state, action: PayloadAction<{ totalCount: number }>) {
       const { totalCount } = action.payload;
       state.totalCount = totalCount;
-      state.pages = getArrayOfNumbers(Math.ceil(totalCount / PAGE));
-      console.log('sp', state.pages);
+      state.pages = getArrayOfNumbers(Math.ceil(totalCount / Number(state.pageSize)));
+      console.log("sp", state.pages);
     },
     setCurrentPage(state, action: PayloadAction<{ currentPage: number }>) {
       state.currentPage = action.payload.currentPage;
     },
+    setPageSize(state, action: PayloadAction<{ pageSize: string }>) {
+      state.pageSize = action.payload.pageSize;
+    },
   },
 });
 
-export const { setPages, setCurrentPage } = paginationSlice.actions;
+export const { setPages, setCurrentPage, setPageSize } = paginationSlice.actions;
 export const paginationReducer = paginationSlice.reducer;
