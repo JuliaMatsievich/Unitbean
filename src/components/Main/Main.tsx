@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { IItem } from "../../inteface/type";
+import { IItem } from "../../interface/type";
 import styles from "./Main.module.css";
 import { EditPosition } from "../Modal/ModalEditPosition";
 
@@ -29,7 +29,10 @@ export const Main: FC<IItemsProps> = ({ items }) => {
               onClick={() => setIsOpenModalEdit(true)}
             />
             {isOpenModalEdit && (
-              <EditPosition setIsOpenModalEdit={setIsOpenModalEdit}  item={item}/>
+              <EditPosition
+                setIsOpenModalEdit={setIsOpenModalEdit}
+                item={item}
+              />
             )}
           </div>
         ))}

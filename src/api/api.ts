@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL } from "../constants/url";
-import { IItem, IItemForm, IItems } from "../inteface/type";
+import { IItem, IItemForm, IItems } from "../interface/type";
 import { RootState } from "../store/store";
 
 export const mainApi = createApi({
@@ -92,5 +92,5 @@ export const {
   useAddItemMutation,
   useEditItemByIdMutation,
   useGetItemsSearchQuery,
-  useLazyGetItemsSearchQuery
+  useLazyGetItemsSearchQuery,
 } = mainApi;

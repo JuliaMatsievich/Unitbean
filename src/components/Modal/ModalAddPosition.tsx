@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styles from "./ModalAddPosition.module.css";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { IItemForm } from "../../inteface/type";
+import { IItemForm } from "../../interface/type";
 import { useAddItemMutation } from "../../api/api";
 
 interface IModalAddPositionProps {

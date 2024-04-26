@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styles from "./ModalAddPosition.module.css";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { IItem, IItemForm } from "../../inteface/type";
+import { IItem, IItemForm } from "../../interface/type";
 import { useEditItemByIdMutation } from "../../api/api";
 
 interface IModalEditPositionProps {
@@ -30,7 +30,7 @@ export const EditPosition: FC<IModalEditPositionProps> = ({
 
   const handleAddItem: SubmitHandler<IItemForm> = (data) => {
     editById({ ...data, id: item.id }).unwrap();
-    setIsOpenModalEdit(false)
+    setIsOpenModalEdit(false);
   };
 
   return (

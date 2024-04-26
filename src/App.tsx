@@ -10,7 +10,7 @@ import {
 } from "./api/api";
 import { useAppDispatch } from "./hooks/useAppDispatch";
 import { setToken } from "./store/slices/userSlice";
-import { IItem, IItems } from "./inteface/type";
+import { IItem, IItems } from "./interface/type";
 import { setCurrentPage, setPages } from "./store/slices/paginationSlice";
 import { useAppSelector } from "./hooks/useAppSelector";
 import { AddPosition } from "./components/Modal/ModalAddPosition";
@@ -25,7 +25,6 @@ function App() {
   const currentPage = useAppSelector((state) => state.pagination.currentPage);
   const [isOpenModalAdd, setIsOpenModalAdd] = useState<boolean>(false);
   const pageSize = Number(useAppSelector((state) => state.pagination.pageSize));
-
 
   useEffect(() => {
     getAuthLogin({ login: "admin", password: "admin" })
@@ -59,9 +58,7 @@ function App() {
           setSearch={setSearch}
           setIsOpenModalAdd={setIsOpenModalAdd}
         />
-        <Main
-          items={items}
-        />
+        <Main items={items} />
         <Pagination
           handlePageChange={(currentPage) =>
             dispatch(setCurrentPage({ currentPage }))
