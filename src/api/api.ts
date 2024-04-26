@@ -32,9 +32,12 @@ export const mainApi = createApi({
       invalidatesTags: () => [{ type: "User", id: "ID" }],
     }),
 
-    getItems: builder.query<IItems, { page: number; pageSize: number }>({
+    getItems: builder.query<
+      IItems,
+      { page: number; pageSize: number; sortOrder: string }
+    >({
       query: (arg) => ({
-        url: `wh/items?page=${arg.page}&pageSize=${arg.pageSize}`,
+        url: `wh/items?page=${arg.page}&pageSize=${arg.pageSize}&sortOrder=${arg.sortOrder}`,
         method: "GET",
       }),
       providesTags: () => [{ type: "Items", id: "id" }],
@@ -42,10 +45,10 @@ export const mainApi = createApi({
 
     getItemsSearch: builder.query<
       IItems,
-      { page: number; pageSize: number; itemName: string }
+      { page: number; pageSize: number; itemName: string; sortOrder: string }
     >({
       query: (arg) => ({
-        url: `wh/items?page=${arg.page}&pageSize=${arg.pageSize}&itemName=${arg.itemName}`,
+        url: `wh/items?page=${arg.page}&pageSize=${arg.pageSize}&itemName=${arg.itemName}&sortOrder=${arg.sortOrder}`,
         method: "GET",
       }),
       providesTags: () => [{ type: "Items", id: "id" }],

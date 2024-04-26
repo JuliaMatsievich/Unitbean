@@ -25,6 +25,7 @@ function App() {
   const currentPage = useAppSelector((state) => state.pagination.currentPage);
   const [isOpenModalAdd, setIsOpenModalAdd] = useState<boolean>(false);
   const pageSize = Number(useAppSelector((state) => state.pagination.pageSize));
+  const [sortOrder, setSortOrder] = useState('ASC');
 
   useEffect(() => {
     getAuthLogin({ login: "admin", password: "admin" })
@@ -34,21 +35,26 @@ function App() {
       );
 
     if (!search) {
-      getItems({ page: currentPage, pageSize: pageSize })
+      getItems({ page: currentPage, pageSize: pageSize, sortOrder: sortOrder })
         .unwrap()
         .then((response: IItems) => {
           setItems(response.result);
           dispatch(setPages({ totalCount: response.total }));
         });
     } else {
-      getSearchItem({ page: currentPage, pageSize: pageSize, itemName: search })
+      getSearchItem({
+        page: currentPage,
+        pageSize: pageSize,
+        itemName: search,
+        sortOrder: sortOrder,
+      })
         .unwrap()
         .then((response: IItems) => {
           setItems(response.result);
           dispatch(setPages({ totalCount: response.total }));
         });
     }
-  }, [currentPage, items, dispatch, search, pageSize]);
+  }, [currentPage, items, dispatch, search, pageSize, sortOrder]);
 
   return (
     <div className="wrapper">
@@ -58,7 +64,7 @@ function App() {
           setSearch={setSearch}
           setIsOpenModalAdd={setIsOpenModalAdd}
         />
-        <Main items={items} />
+        <Main items={items} setSortOrder={setSortOrder} sortOrder={sortOrder} />
         <Pagination
           handlePageChange={(currentPage) =>
             dispatch(setCurrentPage({ currentPage }))
