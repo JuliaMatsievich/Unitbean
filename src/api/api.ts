@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL } from "../constants/url";
-import { IItems } from "../inteface/type";
+import { IItem, IItemForm, IItems } from "../inteface/type";
 import { RootState } from "../store/store";
 
 export const mainApi = createApi({
@@ -39,6 +39,38 @@ export const mainApi = createApi({
       }),
       providesTags: () => [{ type: "Items", id: "id" }],
     }),
+
+    addItem: builder.mutation<IItem, IItemForm>({
+      query: (args) => ({
+        url: "wh/items",
+        method: "POST",
+        body: args,
+      }),
+      invalidatesTags: () => [{ type: "Items", id: "id" }],
+    }),
+
+    editItemById: builder.mutation<
+      IItem,
+      {
+        name: string;
+        description: string;
+        measurement_units: string;
+        code: string;
+        id: string;
+      }
+    >({
+      query: (args) => ({
+        url: `wh/items/${args.id}`,
+        method: "PATCH",
+        body: {
+          name: args.name,
+          description: args.description,
+          measurement_units: args.measurement_units,
+          code: args.code,
+        },
+      }),
+      invalidatesTags: () => [{ type: "Items", id: "id" }],
+    }),
   }),
 });
 
@@ -46,4 +78,6 @@ export const {
   useGetAuthLoginMutation,
   useGetItemsQuery,
   useLazyGetItemsQuery,
+  useAddItemMutation,
+  useEditItemByIdMutation
 } = mainApi;

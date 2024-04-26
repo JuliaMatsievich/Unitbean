@@ -20,6 +20,8 @@ function App() {
   const dispatch = useAppDispatch();
   const currentPage = useAppSelector((state) => state.pagination.currentPage);
   const [isOpenModalAdd, setIsOpenModalAdd] = useState<boolean>(false);
+  // const totalCount = useAppSelector((state) => state.pagination.totalCount);
+  const [allItems, setAllItems] = useState<IItem[]>([]);
 
   useEffect(() => {
     getAuthLogin({ login: "admin", password: "admin" })
@@ -33,15 +35,18 @@ function App() {
           .then((response: IItems) => {
             setItems(response.result);
             dispatch(setPages({ totalCount: response.total }));
+            getItems({ page: 1, pageSize: response.total }).unwrap()
+            .then((res) => setAllItems(res.result));
           });
-      });
-  }, [currentPage]);
+      })
+      
+  }, [currentPage, items]);
 
   return (
     <div className="wrapper">
       <div className="container">
         <Header
-          items={items}
+          items={allItems}
           search={search}
           setSearch={setSearch}
           setIsOpenModalAdd={setIsOpenModalAdd}

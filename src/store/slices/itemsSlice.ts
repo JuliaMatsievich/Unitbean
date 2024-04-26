@@ -25,13 +25,8 @@ export const itemsSlice = createSlice({
       const { items, searchValue } = action.payload;
       state.filteredItems = searchItemsFunc(items, searchValue);
     },
-
-    showModal(state, action: PayloadAction<{ modalName: string }>) {
-      state.isShowModal = !state.isShowModal;
-      state.modalName = action.payload.modalName;
-    },
   },
 });
 
-export const { searchItems, showModal } = itemsSlice.actions;
+export const { searchItems} = itemsSlice.actions;
 export const itemsReducer = itemsSlice.reducer;

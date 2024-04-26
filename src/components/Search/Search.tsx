@@ -17,13 +17,6 @@ export const Search: FC<ISearchProps> = ({ items, search, setSearch }) => {
     dispatch(searchItems({ items, searchValue: search }));
   };
 
-  // useEffect(() => {
-  //   // if (!search) {
-  //   //   dispatch(searchItems({ items, searchValue: search }));
-  //   // }
-  //   console.log("search", search);
-  // }, [search]);
-
   return (
     <>
       <div className={styles.container}>

@@ -1,24 +1,36 @@
 import { FC } from "react";
 import styles from "./ModalAddPosition.module.css";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { IItemForm } from "../../inteface/type";
-import { useAddItemMutation } from "../../api/api";
+import { IItem, IItemForm } from "../../inteface/type";
+import { useEditItemByIdMutation } from "../../api/api";
 
-interface IModalAddPositionProps {
-  setIsOpenModalAdd: React.Dispatch<React.SetStateAction<boolean>>;
+interface IModalEditPositionProps {
+  setIsOpenModalEdit: React.Dispatch<React.SetStateAction<boolean>>;
+  item: IItem;
 }
 
-export const AddPosition: FC<IModalAddPositionProps> = ({
-  setIsOpenModalAdd,
+export const EditPosition: FC<IModalEditPositionProps> = ({
+  setIsOpenModalEdit,
+  item,
 }) => {
+  const [editById] = useEditItemByIdMutation();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IItemForm>();
-  const [addItem] = useAddItemMutation();
+  } = useForm<IItemForm>({
+    defaultValues: {
+      name: item.name,
+      description: item.description,
+      measurement_units: item.measurement_units,
+      code: item.code,
+    },
+  });
+
   const handleAddItem: SubmitHandler<IItemForm> = (data) => {
-    addItem(data).unwrap();
+    editById({ ...data, id: item.id }).unwrap();
+    setIsOpenModalEdit(false)
   };
 
   return (
@@ -29,14 +41,14 @@ export const AddPosition: FC<IModalAddPositionProps> = ({
           <div
             className={styles.closeButton}
             onClick={() => {
-              setIsOpenModalAdd(false);
+              setIsOpenModalEdit(false);
             }}
           />
         </div>
         <div className={styles.content}>
-          <div className={styles.title}>Новая позиция</div>
+          <div className={styles.title}>Редактировать позицию</div>
           <div className={styles.subtitle}>
-            Заполните все поля для создания новой номенклатуры
+            Заполните все поля для редактирования номенклатуры
           </div>
           <form onSubmit={handleSubmit(handleAddItem)} className={styles.form}>
             <div className={styles.formItems}>
@@ -106,7 +118,7 @@ export const AddPosition: FC<IModalAddPositionProps> = ({
                 type="button"
                 className={styles.cancelBtn}
                 onClick={() => {
-                  setIsOpenModalAdd(false);
+                  setIsOpenModalEdit(false);
                 }}
               >
                 Отмена

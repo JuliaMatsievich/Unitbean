@@ -1,12 +1,15 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { IItem } from "../../inteface/type";
 import styles from "./Main.module.css";
+import { EditPosition } from "../Modal/ModalEditPosition";
 
 interface IItemsProps {
   items: IItem[];
 }
 
 export const Main: FC<IItemsProps> = ({ items }) => {
+  const [isOpenModalEdit, setIsOpenModalEdit] = useState<boolean>(false);
+
   return (
     <>
       <main className={styles.container}>
@@ -21,7 +24,13 @@ export const Main: FC<IItemsProps> = ({ items }) => {
             <div>{item.name}</div>
             <div>шт</div>
             <div>{item.code}</div>
-            <button className={styles.editPosition} />
+            <button
+              className={styles.editPosition}
+              onClick={() => setIsOpenModalEdit(true)}
+            />
+            {isOpenModalEdit && (
+              <EditPosition setIsOpenModalEdit={setIsOpenModalEdit}  item={item}/>
+            )}
           </div>
         ))}
       </main>

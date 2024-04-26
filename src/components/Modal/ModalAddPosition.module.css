@@ -148,3 +148,7 @@
 .okBtn:hover {
 	background: var(--colorPrimaryHover);
 }
+
+.error {
+	color: rgb(247, 90, 90);
+}
