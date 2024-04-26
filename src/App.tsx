@@ -9,6 +9,7 @@ import { setToken } from "./store/slices/userSlice";
 import { IItem, IItems } from "./inteface/type";
 import { setCurrentPage, setPages } from "./store/slices/paginationSlice";
 import { useAppSelector } from "./hooks/useAppSelector";
+import { AddPosition } from "./components/Modal/ModalAddPosition";
 
 function App() {
   const [getAuthLogin] = useGetAuthLoginMutation();
@@ -18,6 +19,7 @@ function App() {
   const filteredItems = useAppSelector((state) => state.items.filteredItems);
   const dispatch = useAppDispatch();
   const currentPage = useAppSelector((state) => state.pagination.currentPage);
+  const [isOpenModalAdd, setIsOpenModalAdd] = useState<boolean>(false);
 
   useEffect(() => {
     getAuthLogin({ login: "admin", password: "admin" })
@@ -38,15 +40,23 @@ function App() {
   return (
     <div className="wrapper">
       <div className="container">
-        <Header items={items} search={search} setSearch={setSearch} />
+        <Header
+          items={items}
+          search={search}
+          setSearch={setSearch}
+          setIsOpenModalAdd={setIsOpenModalAdd}
+        />
         <Main
           items={search && filteredItems.length > 0 ? filteredItems : items}
         />
         <Pagination
           handlePageChage={(currentPage) =>
-            dispatch(setCurrentPage({currentPage}))
+            dispatch(setCurrentPage({ currentPage }))
           }
         />
+        {isOpenModalAdd && (
+          <AddPosition setIsOpenModalAdd={setIsOpenModalAdd} />
+        )}
       </div>
     </div>
   );

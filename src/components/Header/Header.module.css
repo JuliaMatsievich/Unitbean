@@ -29,3 +29,6 @@
 	line-height: 20px;
 	letter-spacing: -0.05px;
 }
+.addPosition:hover {
+	background: var(--colorPrimaryHover);
+}

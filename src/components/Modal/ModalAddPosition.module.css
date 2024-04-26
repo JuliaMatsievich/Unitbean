@@ -1,0 +1,150 @@
+.container {
+	padding: 24px;
+	width: 400px;
+	position: absolute;
+	right: 0;
+	height: 100vh;
+	top: 0;
+	box-shadow:
+		0px 0px 0px 1px rgba(10, 9, 11, 0.05),
+		0px 0px 3px -1px rgba(10, 9, 11, 0.04),
+		0px 27px 30px -15px rgba(10, 9, 11, 0.13);
+	z-index: 2;
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+}
+
+.header {
+	height: 84px;
+	padding-bottom: 24px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.homeButton {
+	width: 48px;
+	height: 48px;
+	border-radius: 8px;
+	background: rgb(250, 244, 244);
+	background-image: url(../../assets/home.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: auto;
+	cursor: pointer;
+}
+
+.closeButton {
+	width: 48px;
+	height: 48px;
+	background-image: url(../../assets/close.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: auto;
+	cursor: pointer;
+}
+
+.content {
+	padding-top: 16px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.title {
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 22px;
+	letter-spacing: -0.18px;
+	margin-bottom: 8px;
+}
+.subtitle {
+	color: rgb(141, 133, 133);
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 20px;
+	letter-spacing: -0.05px;
+	margin-bottom: 18px;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	flex: 1 0 auto;
+}
+
+.formItems {
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 auto;
+	gap: 18px;
+}
+
+.formItem {
+	display: flex;
+	flex-direction: column;
+	gap: 7px;
+}
+
+.label {
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 20px;
+	letter-spacing: -0.05px;
+}
+.input,
+.textarea {
+	border: 1px solid rgb(223, 221, 221);
+	border-radius: 4px;
+	background: rgb(255, 255, 255);
+	padding: 10px 24px;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 20px;
+	letter-spacing: -0.05px;
+}
+
+.input:focus,
+.textarea:focus {
+	outline: 1px solid var(--colorPrimary);
+}
+
+.buttonsContainer {
+	display: flex;
+	gap: 12px;
+	width: 100%;
+}
+.cancelBtn,
+.okBtn {
+	width: 170px;
+	height: 40px;
+	border-radius: 6px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0px 14px 0px 14px;
+	color: rgb(255, 255, 255);
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 20px;
+	letter-spacing: -0.05px;
+	border: none;
+	transition: all 0.3s ease 0s;
+}
+
+.cancelBtn {
+	background: var(--colorSecondary);
+}
+
+.okBtn {
+	background: var(--colorPrimary);
+}
+
+.cancelBtn:hover {
+	background: var(--colorSecondaryHover);
+}
+
+.okBtn:hover {
+	background: var(--colorPrimaryHover);
+}

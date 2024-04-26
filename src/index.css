@@ -2,7 +2,9 @@
   --mainFont: 'Inter', sans-serif;
   --textColor: rgb(53, 36, 36);
   --colorSecondary: rgb(81, 74, 74);
+  --colorSecondaryHover: rgb(48, 43, 43);
   --colorPrimary: rgb(168, 87, 87);
+  --colorPrimaryHover: rgb(122, 63, 63);
   --colorBaseWhite: rgb(255, 255, 255);
   --colorBG: rgb(247, 244, 244);
 }
