@@ -1,5 +1,4 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-// import { PAGE } from "../../constants/url";
 import { getArrayOfNumbers } from "../../helpFunc/getArrayNumbers";
 
 interface IPaginationState {
@@ -22,7 +21,9 @@ export const paginationSlice = createSlice({
   reducers: {
     setPages(state, action: PayloadAction<{ totalCount: number }>) {
       const { totalCount } = action.payload;
+      state.totalCount = totalCount;
       state.pages = getArrayOfNumbers(Math.ceil(totalCount / PAGE));
+      console.log('sp', state.pages);
     },
     setCurrentPage(state, action: PayloadAction<{ currentPage: number }>) {
       state.currentPage = action.payload.currentPage;

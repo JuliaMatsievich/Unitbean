@@ -1,20 +1,15 @@
 import { FC } from "react";
-import { IItem } from "../../inteface/type";
 import styles from "./Search.module.css";
-import { useAppDispatch } from "../../hooks/useAppDispatch";
-import { searchItems } from "../../store/slices/itemsSlice";
 
 interface ISearchProps {
-  items: IItem[];
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const Search: FC<ISearchProps> = ({ items, search, setSearch }) => {
-  const dispatch = useAppDispatch();
+export const Search: FC<ISearchProps> = ({ search, setSearch }) => {
 
   const handleClickSearch = () => {
-    dispatch(searchItems({ items, searchValue: search }));
+    setSearch(search)
   };
 
   return (

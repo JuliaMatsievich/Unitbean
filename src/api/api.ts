@@ -40,6 +40,17 @@ export const mainApi = createApi({
       providesTags: () => [{ type: "Items", id: "id" }],
     }),
 
+    getItemsSearch: builder.query<
+      IItems,
+      { page: number; pageSize: number; itemName: string }
+    >({
+      query: (arg) => ({
+        url: `wh/items?page=${arg.page}&pageSize=${arg.pageSize}&itemName=${arg.itemName}`,
+        method: "GET",
+      }),
+      providesTags: () => [{ type: "Items", id: "id" }],
+    }),
+
     addItem: builder.mutation<IItem, IItemForm>({
       query: (args) => ({
         url: "wh/items",
@@ -79,5 +90,7 @@ export const {
   useGetItemsQuery,
   useLazyGetItemsQuery,
   useAddItemMutation,
-  useEditItemByIdMutation
+  useEditItemByIdMutation,
+  useGetItemsSearchQuery,
+  useLazyGetItemsSearchQuery
 } = mainApi;
